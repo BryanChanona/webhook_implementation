@@ -14,3 +14,4 @@ func Routes(router *gin.Engine) {
 	routes.POST("/", postSensorController.Execute) 
 
 }
+
