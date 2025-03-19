@@ -1,21 +1,27 @@
 package main
 
 import (
-	"webhook/src/ESP32-temperature/infraestructure/dependencies"
-	"webhook/src/ESP32-temperature/infraestructure/routes"
+	"os"
+	infrastructurePull "webhook/src/Pull_request_webhook/infraestructure"
+	infraestructureWork "webhook/src/Workflow/infraestructure"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func main() {
-	dependencies.Init()
-	defer dependencies.CloseDB()
+	godotenv.Load()
 
-	r := gin.Default()
+	port := os.Getenv("PORT")
 
-	
+	if port == "" {
+		port = "8080"
+	}
 
-	routes.Routes(r)
+	engine := gin.Default()
 
-	r.Run(":8080")
+	infrastructurePull.Routes(engine)
+	infraestructureWork.Routes(engine)
+
+	engine.Run(":" + port)
 }

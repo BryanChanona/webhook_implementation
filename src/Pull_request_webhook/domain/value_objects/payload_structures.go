@@ -5,16 +5,17 @@ type PullRequestEventPayload struct {
 	Action      string      `json:"action"`
 	PullRequest PullRequest `json:"pull_request"`
 	Repository  Repository  `json:"repository"`
-	Base        Base        `json:"base"`
 }
 
 type PullRequest struct {
-	ID    int    `json:"id"`
-	Title string `json:"title"`
-	Head  Branch `json:"head"`
-	Base  Base   `json:"base"`
-	URL   string `json:"url"`
-	User  User   `json:"user"`
+	ID      int    `json:"id"`
+	Title   string `json:"title"`
+	User    User   `json:"user"`
+	Head    Branch `json:"head"`
+	Base    Branch `json:"base"`
+	URL     string `json:"url"`
+	HTMLURL string `json:"html_url"`
+	Merged  bool   `json:"merged"`
 }
 
 type Branch struct {
@@ -22,10 +23,7 @@ type Branch struct {
 	Sha string `json:"sha"`
 }
 
-type Base struct {
-	Ref string `json:"ref"` // Rama base del Pull Request (ej: develop, main)
-	Sha string `json:"sha"`
-}
+
 
 type Repository struct {
 	FullName string `json:"full_name"`
@@ -33,9 +31,5 @@ type Repository struct {
 }
 
 type User struct {
-	
 	Login string `json:"login"`
-	ID    int    `json:"id"`
-	Type  string `json:"type"`
-	URL   string `json:"url"`
 }
